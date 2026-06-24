@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Dark RP - قوانين السيرفر وتقديم الشكاوى" />
+    <title>Dark RP | القوانين والشكاوى</title>
+
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet" />
+
+    <!-- أيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        /* =========================================================
+           RESET & BASE
+           ========================================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #f85f00;
+            --primary-dark: #d04f00;
+            --primary-light: #ff7a2a;
+            --primary-glow: rgba(248, 95, 0, 0.3);
+            --bg: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --text: #f0f0f5;
+            --text-muted: #a0a0b8;
+            --glass: rgba(255, 255, 255, 0.06);
+            --border: rgba(255, 255, 255, 0.08);
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            --radius: 16px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* =========================================================
+           HEADER
+           ========================================================= */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 12px 0;
+            background: rgba(10, 10, 15, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 4px 40px rgba(248, 95, 0, 0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* =========================================================
+           LOGO
+           ========================================================= */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(248, 95, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 70%);
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .logo-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 300;
+            letter-spacing: 2px;
+            display: block;
+            margin-top: -4px;
+        }
+
+        /* =========================================================
+           NAV LINKS
+           ========================================================= */
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 15px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+            background: rgba(248, 95, 0, 0.15);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            background: rgba(248, 95, 0, 0.2);
+            box-shadow: 0 0 30px rgba(248, 95, 0, 0.1);
+        }
+
+        .nav-links a i {
+            margin-left: 8px;
+        }
+
+        /* =========================================================
+           MOBILE MENU
+           ========================================================= */
+        .mobile-menu-btn {
+            display: none;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: var(--transition);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* =========================================================
+           HERO BANNER
+           ========================================================= */
+        .hero-banner {
+            padding-top: 100px;
+            padding-bottom: 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary-glow), transparent 70%);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: floatBg 10s ease-in-out infinite;
+        }
+
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(248, 95, 0, 0.15), transparent 70%);
+            border-radius: 50%;
+            animation: floatBg 12s ease-in-out infinite reverse;
+        }
+
+        @keyframes floatBg {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(40px, -30px) scale(1.2);
+            }
+        }
+
+        .hero-banner .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-logo {
+            display: inline-block;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 28px;
+            font-size: 56px;
+            font-weight: 900;
+            color: #fff;
+            box-shadow: 0 20px 60px rgba(248, 95, 0, 0.3);
+            margin-bottom: 20px;
+            animation: pulseLogo 3s ease-in-out infinite;
+            position: relative;
+            line-height: 120px;
+            text-align: center;
+        }
+
+        .hero-logo::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 32px;
+            background: linear-gradient(135deg, var(--primary), transparent, var(--primary));
+            opacity: 0.3;
+            z-index: -1;
+            animation: spinGlow 6s linear infinite;
+        }
+
+        @keyframes spinGlow {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulseLogo {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.04);
+            }
+        }
+
+        .hero-banner h1 {
+            font-size: 52px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 60px rgba(248, 95, 0, 0.2);
+        }
+
+        .hero-banner h1 span {
+            color: var(--primary);
+        }
+
+        .hero-banner p {
+            color: var(--text-muted);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 12px auto 0;
+        }
+
+        /* =========================================================
+           PAGES
+           ========================================================= */
+        .page {
+            display: none;
+            padding: 40px 0 80px;
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .page-header h2 {
+            font-size: 36px;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .page-header h2 span {
+            color: var(--primary);
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 17px;
+            margin-top: 8px;
+        }
+
+        /* =========================================================
+           RULES
+           ========================================================= */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .rule-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            backdrop-filter: blur(8px);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rule-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .rule-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 12px 40px rgba(248, 95, 0, 0.1);
+        }
+
+        .rule-card .rule-number {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .rule-card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .rule-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .rule-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 6px 0 0;
+        }
+
+        .rule-card ul li {
+            color: var(--text-muted);
+            font-size: 14px;
+            padding: 2px 0 2px 20px;
+            position: relative;
+        }
+
+        .rule-card ul li::before {
+            content: '•';
+            color: var(--primary);
+            position: absolute;
+            right: 0;
+        }
+
+        .rule-card .rule-icon {
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* =========================================================
+           COMPLAINT FORM
+           ========================================================= */
+        .complaint-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            backdrop-filter: blur(8px);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .complaint-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .complaint-form label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 15px;
+            color: #fff;
+        }
+
+        .complaint-form label .required {
+            color: var(--primary);
+        }
+
+        .complaint-form input,
+        .complaint-form select,
+        .complaint-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+            font-family: 'Cairo', sans-serif;
+            font-size: 15px;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .complaint-form input:focus,
+        .complaint-form select:focus,
+        .complaint-form textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(248, 95, 0, 0.12);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .complaint-form input::placeholder,
+        .complaint-form textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .complaint-form select option {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .complaint-form textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .complaint-form .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(248, 95, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(248, 95, 0, 0.5);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* =========================================================
+           FOOTER
+           ========================================================= */
+        footer {
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        footer .footer-social a {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: var(--transition);
+            font-size: 20px;
+        }
+
+        footer .footer-social a:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(248, 95, 0, 0.3);
+        }
+
+        /* =========================================================
+           TOAST
+           ========================================================= */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 28px;
+            backdrop-filter: blur(16px);
+            box-shadow: var(--shadow);
+            color: #fff;
+            font-weight: 500;
+            transform: translateY(120px);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-color: #00b894;
+        }
+
+        .toast.success i {
+            color: #00b894;
+        }
+
+        .toast.error {
+            border-color: #ff4757;
+        }
+
+        .toast.error i {
+            color: #ff4757;
+        }
+
+        .toast i {
+            font-size: 22px;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+           ========================================================= */
+        @media (max-width: 992px) {
+            .hero-banner h1 {
+                font-size: 38px;
+            }
+            .hero-logo {
+                width: 90px;
+                height: 90px;
+                font-size: 40px;
+                line-height: 90px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                right: 20px;
+                background: var(--bg);
+                padding: 16px;
+                border-radius: var(--radius);
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow);
+                min-width: 180px;
+                gap: 4px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 10px 16px;
+                width: 100%;
+            }
+
+            .mobile-menu-btn {
+                display: flex !important;
+            }
+
+            .hero-banner h1 {
+                font-size: 30px;
+            }
+            .hero-banner p {
+                font-size: 15px;
+            }
+
+            .page-header h2 {
+                font-size: 28px;
+            }
+
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .complaint-form {
+                padding: 24px;
+            }
+
+            .logo-text {
+                font-size: 20px;
+            }
+            .logo-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-banner h1 {
+                font-size: 24px;
+            }
+            .hero-logo {
+                width: 70px;
+                height: 70px;
+                font-size: 32px;
+                line-height: 70px;
+            }
+            .complaint-form {
+                padding: 16px;
+            }
+            .rule-card {
+                padding: 20px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =========================================================
+    HEADER
+    ========================================================= -->
+    <header>
+        <nav class="nav">
+            <a href="#" class="logo">
+                <div class="logo-icon">D</div>
+                <div>
+                    <span class="logo-text">Dark <span>RP</span></span>
+                    <span class="logo-sub">&#8226; قوانين وشكاوى &#8226;</span>
+                </div>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" class="active" data-page="rules"><i class="fas fa-gavel"></i> القوانين</a></li>
+                <li><a href="#" data-page="complaint"><i class="fas fa-file-pen"></i> شكوى</a></li>
+            </ul>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="القائمة">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- =========================================================
+    HERO BANNER
+    ========================================================= -->
+    <section class="hero-banner">
+        <div class="container">
+            <div class="hero-logo">DR</div>
+            <h1>Dark <span>RP</span></h1>
+            <p>عالم من الإثارة والتحديات – مجتمع راقٍ وقوانين تحافظ على تجربة ممتعة للجميع</p>
+        </div>
+    </section>
+
+    <!-- =========================================================
+    PAGE: RULES (القوانين)
+    ========================================================= -->
+    <section class="page active" id="page-rules">
+        <div class="container">
+            <div class="page-header">
+                <h2>📜 قوانين <span>السيرفر</span></h2>
+                <p>الالتزام بالقوانين مسؤولية الجميع – اقرأها جيداً قبل اللعب</p>
+            </div>
+
+            <div class="rules-grid">
+
+                <!-- القانون 1 -->
+                <div class="rule-card">
+                    <span class="rule-icon">🎯</span>
+                    <div class="rule-number">القاعدة #1</div>
+                    <h3>الرول بلاي والواقعية</h3>
+                    <ul>
+                        <li>يجب المحافظة على الواقعية والرول بلاي في جميع الأوقات.</li>
+                        <li>أي تصرف غير واقعي أو يضر بجودة الرول بلاي يعتبر مخالفة حتى لو لم يتم ذكره بشكل صريح.</li>
+                        <li>يجب أن تتصرف شخصيتك بما يتناسب مع عمرها ووظيفتها ووضعها داخل الرول بلاي.</li>
+                        <li>يمنع القيام بأي تصرف هدفه التخريب أو إفساد تجربة اللاعبين الآخرين.</li>
+                    </ul>
+                </div>
+
+                <!-- القانون 2 -->
+                <div class="rule-card">
+                    <span class="rule-icon">😨</span>
+                    <div class="rule-number">القاعدة #2</div>
+                    <h3>Fear RP</h3>
+                    <ul>
+                        <li>يجب أن تخاف شخصيتك على حياتها في جميع المواقف الخطرة.</li>
+                        <li>يمنع تجاهل التهديدات الجدية أو التصرف وكأن شخصيتك لا تتأثر بالخطر.</li>
+                        <li>عند توجيه سلاح إليك في موقف منطقي يجب عليك التفاعل مع الموقف بشكل واقعي.</li>
+                        <li>يمنع الدخول في مواجهات انتحارية أو غير منطقية دون مبرر واضح.</li>
+                    </ul>
+                </div>
+
+                <!-- القانون 3 -->
+                <div class="rule-card">
+                    <span class="rule-icon">❤️</span>
+                    <div class="rule-number">القاعدة #3</div>
+                    <h3>Value Of Life</h3>
+                    <ul>
+                        <li>يجب اعتبار حياة شخصيتك ذات قيمة عالية.</li>
+                        <li>يمنع تعريض الشخصية للموت أو الخطر الشديد دون سبب منطقي.</li>
+                        <li>يجب اتخاذ القرارات التي تحافظ على سلامة الشخصية قدر الإمكان.</li>
+                    </ul>
+                </div>
+
+                <!-- القانون 4 -->
+                <div class="rule-card">
+                    <span class="rule-icon">⚡</span>
+                    <div class="rule-number">القاعدة #4</div>
+                    <h3>Power Gaming</h3>
+                    <ul>
+                        <li>يمنع القيام بأفعال أو حركات تتجاوز القدرات البشرية الطبيعية.</li>
+                        <li>يمنع تمثيل قدرات أو مهارات غير منطقية لا تمتلكها الشخصية.</li>
+                        <li>يمنع فرض الأفعال أو النتائج على اللاعبين الآخرين دون إعطائهم فرصة للتفاعل.</li>
+                    </ul>
+                </div>
+
+                <!-- القانون 5 -->
+                <div class="rule-card">
+                    <span class="rule-icon">👁️</span>
+                    <div class="rule-number">القاعدة #5</div>
+                    <h3>Meta Gaming</h3>
+                    <ul>
+                        <li>يمنع استخدام أي معلومات تم الحصول عليها خارج الرول بلاي.</li>
+                        <li>يمنع استخدام برامج الاتصال الخارجية للحصول على معلومات داخل الرول بلاي.</li>
+                        <li>يمنع الاستفادة من البثوث أو الشاشات المشتركة أو المحادثات الخارجية.</li>
+                        <li>يجب أن تعتمد شخصيتك فقط على المعلومات التي حصلت عليها داخل اللعبة.</li>
+                    </ul>
+                </div>
+
+                <!-- القانون 6 -->
+                <div class="rule-card">
+                    <span class="rule-icon">🔫</span>
+                    <div class="rule-number">القاعدة #6</div>
+                    <h3>RDM</h3>
+                    <ul>
+                        <li>يمنع قتل أي لاعب دون سبب رول بلاي واضح ومبرر.</li>
+                        <li>يجب وجود دافع منطقي أو تصعيد مناسب قبل استخدام القوة المميتة.</li>
+                        <li>يمنع القتل العشوائي أو القتل بهدف التخريب.</li>
+                    </ul>
+                </div>
+
+                <!-- القانون 7 -->
+                <div class="rule-card">
+                    <span class="rule-icon">🚗</span>
+                    <div class="rule-number">القاعدة #7</div>
+                    <h3>VDM</h3>
+                    <ul>
+                        <li>يمنع استخدام المركبات كوسيلة لقتل أو إيذاء اللاعبين عمداً.</li>
+                        <li>يمنع صدم اللاعبين أو المركبات الأخرى دون مبرر رول بلاي واضح.</li>
+                        <li>يمنع استخدام السيارة كسلاح لتحقيق أفضلية غير واقعية.</li>
+                    </ul>
+                </div>
+
+                <!-- القانون 8 -->
+                <div class="rule-card">
+                    <span class="rule-icon">🔄</span>
+                    <div class="rule-number">القاعدة #8</div>
+                    <h3>NLR</h3>
+                    <ul>
+                        <li>بعد وفاة الشخصية يمنع العودة مباشرة إلى نفس الحدث أو استكماله.</li>
+                        <li>يمنع الانتقام أو استكمال السيناريو اعتماداً على معلومات اكتسبتها قبل الوفاة.</li>
+                        <li>يجب احترام نظام الحياة الجديدة المطبق في السيرفر.</li>
+                    </ul>
+                </div>
+
+                <!-- القانون 9 -->
+                <div class="rule-card">
+                    <span class="rule-icon">🚪</span>
+                    <div class="rule-number">القاعدة #9</div>
+                    <h3>Combat Logging</h3>
+                    <ul>
+                        <li>يمنع الخروج من اللعبة أثناء أي سيناريو نشط لتجنب نتائجه.</li>
+                        <li>يشمل ذلك المطاردات والاعتقالات والاشتباكات والتحقيقات والسرقات.</li>
+                        <li>يعتبر الخروج المتعمد من الرول بلاي مخالفة تستوجب العقوبة.</li>
+                    </ul>
+                </div>
+
+                <!-- القانون 10 -->
+                <div class="rule-card">
+                    <span class="rule-icon">🏎️</span>
+                    <div class="rule-number">القاعدة #10</div>
+                    <h3>القيادة</h3>
+                    <ul>
+                        <li>يجب القيادة بشكل واقعي ومناسب للظروف.</li>
+                        <li>يمنع الاستهتار أو القيادة العشوائية دون سبب رول بلاي.</li>
+                        <li>يجب احترام الأنظمة المرورية ما لم يوجد مبرر رول بلاي واضح.</li>
+                        <li>يمنع القيادة بشكل يضر بتجربة اللاعبين أو الواقعية العامة للسيرفر.</li>
+                    </ul>
+                </div>
+
+                <!-- القانون 11 -->
+                <div class="rule-card">
+                    <span class="rule-icon">🐛</span>
+                    <div class="rule-number">القاعدة #11</div>
+                    <h3>استغلال الثغرات</h3>
+                    <ul>
+                        <li>يمنع استغلال أي خطأ أو ثغرة لتحقيق مكاسب.</li>
+                        <li>يجب إبلاغ الإدارة عن أي ثغرة يتم اكتشافها.</li>
+                        <li>استغلال الثغرات يعتبر مخالفة جسيمة حتى لو لم يتم التحذير منها مسبقاً.</li>
+                    </ul>
+                </div>
+
+                <!-- القانون 12 -->
+                <div class="rule-card">
+                    <span class="rule-icon">🤝</span>
+                    <div class="rule-number">القاعدة #12</div>
+                    <h3>الاحترام والسلوك</h3>
+                    <ul>
+                        <li>يمنع السب أو الإهانة أو التحرش أو التنمر.</li>
+                        <li>يمنع استهداف اللاعبين شخصياً خارج حدود الرول بلاي.</li>
+                        <li>يجب احترام اللاعبين والإدارة في جميع الأوقات.</li>
+                        <li>يمنع إثارة المشاكل أو الجدالات غير الضرورية داخل السيرفر.</li>
+                    </ul>
+                </div>
+
+                <!-- القانون 13 -->
+                <div class="rule-card">
+                    <span class="rule-icon">⚖️</span>
+                    <div class="rule-number">القاعدة #13</div>
+                    <h3>العقوبات</h3>
+                    <ul>
+                        <li>تختلف العقوبات حسب نوع المخالفة وتكرارها.</li>
+                        <li>يحق للإدارة اتخاذ الإجراء المناسب للحفاظ على جودة السيرفر.</li>
+                        <li>الجهل بالقوانين لا يعتبر عذراً.</li>
+                        <li>يحق للإدارة التعامل مع الحالات غير المذكورة في القوانين بما يخدم مصلحة السيرفر والرول بلاي.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- رسالة التعهد -->
+            <div style="text-align: center; margin-top: 40px; padding: 24px; background: var(--bg-card); border-radius: var(--radius); border: 1px solid var(--border);">
+                <p style="color: var(--text-muted); font-size: 16px;">
+                    <i class="fas fa-check-circle" style="color: var(--primary); font-size: 20px;"></i>
+                    بدخولك السيرفر فإنك توافق على جميع القوانين السابقة وتتعهد بالالتزام بها،
+                    <br />وأي مخالفة قد تعرضك للعقوبات المناسبة وفق تقدير الإدارة.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =========================================================
+    PAGE: COMPLAINT (شكوى)
+    ========================================================= -->
+    <section class="page" id="page-complaint">
+        <div class="container">
+            <div class="page-header">
+                <h2>📝 تقديم <span>شكوى</span></h2>
+                <p>نرحب بملاحظاتك وشكاويك، نسعى دائماً لتحسين تجربتك</p>
+            </div>
+
+            <form class="complaint-form" id="complaintForm">
+                <div class="form-group">
+                    <label>اسم اللاعب <span class="required">*</span></label>
+                    <input type="text" id="playerName" placeholder="أدخل اسمك في اللعبة" required />
+                </div>
+
+                <div class="form-group">
+                    <label>البريد الإلكتروني <span class="required">*</span></label>
+                    <input type="email" id="playerEmail" placeholder="بريدك الإلكتروني للتواصل" required />
+                </div>
+
+                <div class="form-group">
+                    <label>نوع الشكوى <span class="required">*</span></label>
+                    <select id="complaintType" required>
+                        <option value="">اختر نوع الشكوى</option>
+                        <option value="شكوى ضد لاعب">شكوى ضد لاعب</option>
+                        <option value="شكوى ضد إداري">شكوى ضد إداري</option>
+                        <option value="خطأ فني أو ثغرة">خطأ فني أو ثغرة</option>
+                        <option value="اقتراح تطوير">اقتراح تطوير</option>
+                        <option value="أخرى">أخرى</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>اسم اللاعب المشكو ضده (إن وجد)</label>
+                    <input type="text" id="reportedPlayer" placeholder="اسم اللاعب الآخر" />
+                </div>
+
+                <div class="form-group">
+                    <label>تفاصيل الشكوى <span class="required">*</span></label>
+                    <textarea id="complaintDetails" placeholder="اكتب تفاصيل شكواك بالتفصيل..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>دليل (صورة أو فيديو - اختياري)</label>
+                    <input type="text" id="evidenceLink" placeholder="رابط الصورة أو الفيديو (مثل Imgur أو YouTube)" />
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> إرسال الشكوى
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- =========================================================
+    FOOTER (مع رابط ديسكورد)
+    ========================================================= -->
+    <footer>
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://discord.gg/jxagc8Smm" target="_blank" aria-label="Discord" title="انضم إلى ديسكورد">
+                    <i class="fab fa-discord"></i>
+                </a>
+            </div>
+            <p>
+                &copy; 2026 <a href="#">Dark RP</a> - جميع الحقوق محفوظة.
+                <br />
+                <span style="color: var(--text-muted); font-size: 13px;">
+                    صنع بحب <i class="fas fa-heart" style="color: var(--primary);"></i> لعالم الألعاب
+                </span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- =========================================================
+    TOAST
+    ========================================================= -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">تم الإرسال بنجاح!</span>
+    </div>
+
+    <!-- =========================================================
+    JAVASCRIPT
+    ========================================================= -->
+    <script>
+        (function() {
+            'use strict';
+
+            // =====================================================
+            // PAGE NAVIGATION
+            // =====================================================
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const pages = {
+                rules: document.getElementById('page-rules'),
+                complaint: document.getElementById('page-complaint'),
+            };
+
+            function switchPage(pageId) {
+                Object.values(pages).forEach(p => p.classList.remove('active'));
+                if (pages[pageId]) {
+                    pages[pageId].classList.add('active');
+                }
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.dataset.page === pageId) {
+                        link.classList.add('active');
+                    }
+                });
+                document.getElementById('navLinks').classList.remove('active');
+                const mobileIcon = document.querySelector('.mobile-menu-btn i');
+                if (mobileIcon) {
+                    mobileIcon.className = 'fas fa-bars';
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.dataset.page;
+                    if (page) {
+                        switchPage(page);
+                    }
+                });
+            });
+
+            // =====================================================
+            // MOBILE MENU
+            // =====================================================
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            const navList = document.getElementById('navLinks');
+
+            mobileBtn.addEventListener('click', function() {
+                navList.classList.toggle('active');
+                const icon = this.querySelector('i');
+                if (navList.classList.contains('active')) {
+                    icon.className = 'fas fa-times';
+                } else {
+                    icon.className = 'fas fa-bars';
+                }
+            });
+
+            // =====================================================
+            // TOAST
+            // =====================================================
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            let toastTimeout = null;
+
+            function showToast(message, type) {
+                toast.className = 'toast';
+                if (type === 'success') {
+                    toast.classList.add('success');
+                    toast.querySelector('i').className = 'fas fa-check-circle';
+                } else if (type === 'error') {
+                    toast.classList.add('error');
+                    toast.querySelector('i').className = 'fas fa-exclamation-circle';
+                } else {
+                    toast.querySelector('i').className = 'fas fa-info-circle';
+                }
+                toastMessage.textContent = message;
+                toast.classList.add('show');
+                if (toastTimeout) {
+                    clearTimeout(toastTimeout);
+                }
+                toastTimeout = setTimeout(function() {
+                    toast.classList.remove('show');
+                }, 4000);
+            }
+
+            // =====================================================
+            // COMPLAINT FORM → Discord Webhook
+            // =====================================================
+            const form = document.getElementById('complaintForm');
+            const submitBtn = document.getElementById('submitBtn');
+
+            // 🔥 Webhook URL الخاص بك
+            const WEBHOOK_URL = 'https://discord.com/api/webhooks/1519393213809688786/RI_7F2TJzqVOvIVGsbQC5njrbC8ROd6_8NF68uNSJsvgamHw3UOPyudKY5ZY_pLRzxkc';
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const data = {
+                    playerName: document.getElementById('playerName').value.trim(),
+                    playerEmail: document.getElementById('playerEmail').value.trim(),
+                    complaintType: document.getElementById('complaintType').value,
+                    reportedPlayer: document.getElementById('reportedPlayer').value.trim(),
+                    complaintDetails: document.getElementById('complaintDetails').value.trim(),
+                    evidenceLink: document.getElementById('evidenceLink').value.trim(),
+                };
+
+                if (!data.playerName || !data.playerEmail || !data.complaintType || !data.complaintDetails) {
+                    showToast('⚠️ الرجاء ملء جميع الحقول المطلوبة', 'error');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+
+                // رسالة ديسكورد
+                const embed = {
+                    title: '📩 شكوى جديدة',
+                    color: 0xf85f00,
+                    fields: [
+                        { name: '👤 اسم اللاعب', value: data.playerName, inline: true },
+                        { name: '📧 البريد الإلكتروني', value: data.playerEmail, inline: true },
+                        { name: '📂 نوع الشكوى', value: data.complaintType, inline: true },
+                        { name: '👥 المشكو ضده', value: data.reportedPlayer || 'غير محدد', inline: true },
+                        { name: '📝 التفاصيل', value: data.complaintDetails || 'لا يوجد' },
+                        { name: '🔗 دليل', value: data.evidenceLink || 'لا يوجد' },
+                    ],
+                    footer: { text: 'تم الإرسال عبر الموقع | Dark RP' },
+                    timestamp: new Date().toISOString(),
+                };
+
+                // إرسال إلى ديسكورد
+                fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ embeds: [embed] }),
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            showToast('✅ تم إرسال شكواك بنجاح إلى الإدارة!', 'success');
+                            form.reset();
+                        } else {
+                            showToast('❌ حدث خطأ، حاول مرة أخرى لاحقاً.', 'error');
+                        }
+                    })
+                    .catch(() => {
+                        showToast('❌ فشل الاتصال، تأكد من اتصالك بالإنترنت.', 'error');
+                    })
+                    .finally(() => {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        setTimeout(() => switchPage('rules'), 2000);
+                    });
+            });
+
+            // =====================================================
+            // KEYBOARD SHORTCUTS
+            // =====================================================
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.key === '1') {
+                    e.preventDefault();
+                    switchPage('rules');
+                }
+                if (e.ctrlKey && e.key === '2') {
+                    e.preventDefault();
+                    switchPage('complaint');
+                }
+            });
+
+            // =====================================================
+            // URL PARAM
+            // =====================================================
+            const urlParams = new URLSearchParams(window.location.search);
+            const pageParam = urlParams.get('page');
+            if (pageParam === 'rules' || pageParam === 'complaint') {
+                switchPage(pageParam);
+            }
+
+        })();
+    </script>
+
+</body>
+</html>
